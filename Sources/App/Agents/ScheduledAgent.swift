@@ -5,7 +5,15 @@ enum Time {
 }
 
 enum Schedule {
+    case every1m
+    case every2m
+    case every5m
+    // ...
+    case every1d
+    case every2d
+    case everyMonday
     case every(TimeInterval)
+
     case at(Time)
 }
 
