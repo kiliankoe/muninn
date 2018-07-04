@@ -9,7 +9,7 @@ class JSONParseAgent: ProcessingAgent {
     """
 
     var name: String
-    var memory: [String : String] = [:]
+    var memory: [String: String] = [:]
 
     var sources: [EmittingAgent]
     var receivers: [ReceivingAgent]
