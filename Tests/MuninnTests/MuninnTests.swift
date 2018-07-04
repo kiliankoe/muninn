@@ -1,4 +1,4 @@
-import App
+import MuninnCore
 import XCTest
 
 final class AppTests: XCTestCase {
