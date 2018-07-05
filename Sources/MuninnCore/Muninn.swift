@@ -12,6 +12,8 @@ public class Muninn {
     func readScenarios() {
         let scenariosDir = try! FileManager.default.contentsOfDirectory(atPath: "./scenarios")
         for file in scenariosDir {
+            guard file.contains(".yml") || file.contains(".yaml") else { continue }
+
             let configScenarioHandle = try! FileHandle(forReadingFrom: URL(string: "./scenarios/\(file)")!)
             let configScenarioStr = String(data: configScenarioHandle.readDataToEndOfFile(), encoding: .utf8)
             let configScenario = try! YAMLDecoder().decode(YamlScenario.self, from: configScenarioStr!)
@@ -33,7 +35,9 @@ public class Muninn {
                 agent.receivers = receivers as! [ReceivingAgent]
             }
 
-            let name = file.replacingOccurrences(of: ".yml", with: "")
+            let name = file
+                .replacingOccurrences(of: ".yml", with: "")
+                .replacingOccurrences(of: ".yaml", with: "")
             let scenario = Scenario(name: name, agents: agents)
             self.scenarios.append(scenario)
         }
