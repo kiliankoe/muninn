@@ -30,11 +30,7 @@ protocol EmittingAgent: Agent {
 }
 
 /// An agent that directly processes incoming events optionally producing new events.
-protocol ProcessingAgent: Agent {
-    var receivers: [ReceivingAgent] { get }
-
-    /// Receive an event, process it and optionally emit new events to `receivers`.
-    ///
-    /// - Parameter event: an event
-    func process(event: Event)
-}
+///
+/// - Warning: `emit()` is not called albeit being present. `receive(event:)` should push events along to all
+///             receivers.
+typealias ProcessingAgent = ReceivingAgent & EmittingAgent
