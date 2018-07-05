@@ -17,8 +17,8 @@ struct YamlAgent: Decodable {
             return WeatherAgent(from: self)
         case "telegram_agent":
             return TelegramAgent(from: self)
-        case "json_parse_agent":
-            return JSONParseAgent(from: self)
+//        case "json_parse_agent":
+//            return JSONParseAgent(from: self)
         default:
             print("Invalid agent name `\(type)`")
             return nil
