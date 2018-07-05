@@ -1,5 +1,4 @@
 import Foundation
-import AnyCodable
 
 class WeatherAgent: ScheduledAgent {
     static var agentName = "Weather Agent"
