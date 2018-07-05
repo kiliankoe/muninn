@@ -30,7 +30,7 @@ public class Muninn {
 
                 let receivers = wantedReceivers
                     .compactMap { agentName in return agents.first(where: { $0.name == agentName })}
-                    .filter { $0 is ReceivingAgent }
+                    .filter { $0 is ReceivingAgent } // TODO: specifying non-receiving agents should be output as an error
 
                 agent.receivers = receivers as! [ReceivingAgent]
             }
