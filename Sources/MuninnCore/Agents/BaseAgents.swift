@@ -10,9 +10,6 @@ protocol Agent {
 
 // An agent that can receive events.
 protocol ReceivingAgent: Agent {
-    // used for transparent runtime documentation, events are not polled from sources, but pushed here.
-    var sources: [EmittingAgent] { get }
-
     /// Receive an event from a source. This is called by the source itself.
     ///
     /// - Parameter event: an event
@@ -35,7 +32,6 @@ protocol EmittingAgent: Agent {
 
 /// An agent that directly processes incoming events optionally producing new events.
 protocol ProcessingAgent: Agent {
-    var sources: [EmittingAgent] { get }
     var receivers: [ReceivingAgent] { get }
 
     /// Receive an event, process it and optionally emit new events to `receivers`.

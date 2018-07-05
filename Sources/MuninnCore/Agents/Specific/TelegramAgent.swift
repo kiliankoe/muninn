@@ -9,8 +9,6 @@ class TelegramAgent: ReceivingAgent {
     var name: String
     var memory: [String: String] = [:]
 
-    var sources: [EmittingAgent]
-
     var authToken: String
     var chatId: String
 
@@ -18,12 +16,10 @@ class TelegramAgent: ReceivingAgent {
     var messageConfigHandler: MessageConfigHandler
 
     init(name: String,
-         sources: [EmittingAgent],
          authToken: String,
          chatId: String,
          messageConfigHandler: @escaping MessageConfigHandler) {
         self.name = name
-        self.sources = sources
         self.authToken = authToken
         self.chatId = chatId
         self.messageConfigHandler = messageConfigHandler
@@ -32,7 +28,6 @@ class TelegramAgent: ReceivingAgent {
     required init?(from config: YamlAgent) {
         self.name = config.name
         #warning("TODO")
-        self.sources = []
         self.authToken = ""
         self.chatId = ""
         self.messageConfigHandler = { message in return message }

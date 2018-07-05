@@ -11,15 +11,13 @@ class JSONParseAgent: ProcessingAgent {
     var name: String
     var memory: [String: String] = [:]
 
-    var sources: [EmittingAgent]
     var receivers: [ReceivingAgent]
 
     typealias JSONHandler = (Data) -> Data?
     var jsonHandler: JSONHandler
 
-    init(name: String, sources: [EmittingAgent], receivers: [ReceivingAgent], jsonHandler: @escaping JSONHandler) {
+    init(name: String, receivers: [ReceivingAgent], jsonHandler: @escaping JSONHandler) {
         self.name = name
-        self.sources = sources
         self.receivers = receivers
         self.jsonHandler = jsonHandler
     }
@@ -27,7 +25,6 @@ class JSONParseAgent: ProcessingAgent {
     required init?(from config: YamlAgent) {
         self.name = config.name
         #warning("TODO")
-        self.sources = []
         self.receivers = []
         self.jsonHandler = { data in return data }
     }
