@@ -1,14 +1,23 @@
 agents:
-  - name: "Weather Agent"
+  - name: Weather Agent
     type: weather_agent
     schedule: every_1d
     receivers:
-      - "Telegram Agent"
+      - Rain Trigger
     options:
       service: darksky
       api_key: 123abc
       location: Dresden, Germany
-  - name: "Telegram Agent"
+  - name: Rain Trigger
+    type: trigger_agent
+    receivers:
+      - Telegram Agent
+    options:
+      rules:
+        - type: regex
+          value: rain|storm
+          path: conditions
+  - name: Telegram Agent
     type: telegram_agent
     options:
       auth_token: y82394

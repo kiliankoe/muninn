@@ -17,6 +17,8 @@ struct YamlAgent: Decodable {
             return WeatherAgent(from: self)
         case "telegram_agent":
             return TelegramAgent(from: self)
+        case "trigger_agent":
+            return TriggerAgent(from: self)
 //        case "json_parse_agent":
 //            return JSONParseAgent(from: self)
         default:
