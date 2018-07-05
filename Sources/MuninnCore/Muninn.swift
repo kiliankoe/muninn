@@ -28,6 +28,8 @@ public class Muninn {
                     continue
                 }
 
+                // TODO: Validate that receivers exist and every agent can be reached.
+
                 let receivers = wantedReceivers
                     .compactMap { agentName in return agents.first(where: { $0.name == agentName })}
                     .filter { $0 is ReceivingAgent } // TODO: specifying non-receiving agents should be output as an error
@@ -38,6 +40,7 @@ public class Muninn {
             let name = file
                 .replacingOccurrences(of: ".yml", with: "")
                 .replacingOccurrences(of: ".yaml", with: "")
+
             let scenario = Scenario(name: name, agents: agents)
             self.scenarios.append(scenario)
         }
@@ -46,6 +49,7 @@ public class Muninn {
     public func run() {
         self.readScenarios()
 
+        // TODO: Improve output, ideally to show receiver relationships.
         for scenario in self.scenarios {
             print("Created scenario '\(scenario.name)' with the following agents:")
             for agent in scenario.agents {
