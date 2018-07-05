@@ -21,7 +21,7 @@ protocol ReceivingAgent: Agent {
 /// These are mostly also `ScheduledAgent`s, but don't necessarily have to be. Possible other `EmittingAgent`s are
 /// those triggered by webhooks, stream events (e.g. Twitter) or manually.
 protocol EmittingAgent: Agent {
-    var receivers: [ReceivingAgent] { get }
+    var receivers: [ReceivingAgent] { get set }
 
     /// Emit events and push these downstream to all receivers.
     ///

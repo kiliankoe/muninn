@@ -3,6 +3,7 @@ import Yams
 
 public class Muninn {
     struct Scenario {
+        var name: String
         var agents: [Agent]
     }
 
@@ -11,12 +12,25 @@ public class Muninn {
     func readScenarios() {
         let scenariosDir = try! FileManager.default.contentsOfDirectory(atPath: "./scenarios")
         for file in scenariosDir {
-            let yamlScenarioHandle = try! FileHandle(forReadingFrom: URL(string: "./scenarios/\(file)")!)
-            let yamlScenarioStr = String(data: yamlScenarioHandle.readDataToEndOfFile(), encoding: .utf8)
-            let yamlScenario = try! YAMLDecoder().decode(YamlScenario.self, from: yamlScenarioStr!)
+            let configScenarioHandle = try! FileHandle(forReadingFrom: URL(string: "./scenarios/\(file)")!)
+            let configScenarioStr = String(data: configScenarioHandle.readDataToEndOfFile(), encoding: .utf8)
+            let configScenario = try! YAMLDecoder().decode(YamlScenario.self, from: configScenarioStr!)
 
-            let agents = yamlScenario.agents.compactMap { $0.parse() }
-            let scenario = Scenario(agents: agents)
+            let agents = configScenario.agents.compactMap { $0.parse() }
+
+            for agent in agents where agent is EmittingAgent {
+                guard let wantedReceivers = configScenario.agents.first(where: { $0.name == agent.name })!.receivers else {
+                    continue
+                }
+                let receivers = wantedReceivers
+                    .compactMap { agentName in return agents.first(where: { $0.name == agentName })}
+                    .filter { $0 is ReceivingAgent }
+                var agent = agent as! EmittingAgent
+                agent.receivers = receivers as! [ReceivingAgent]
+            }
+
+            let name = file.replacingOccurrences(of: ".yml", with: "")
+            let scenario = Scenario(name: name, agents: agents)
             self.scenarios.append(scenario)
         }
     }
@@ -25,8 +39,9 @@ public class Muninn {
         self.readScenarios()
 
         for scenario in self.scenarios {
+            print("Created scenario '\(scenario.name)' with the following agents:")
             for agent in scenario.agents {
-                print(agent)
+                print(" - \(agent.name)")
             }
         }
     }
