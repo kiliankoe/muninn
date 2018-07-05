@@ -1,0 +1,16 @@
+agents:
+  - name: "Weather Agent"
+    type: weather_agent
+    schedule: every_1d
+    receivers:
+      - "Telegram Agent"
+    options:
+      service: darksky
+      api_key: 123abc
+      location: Dresden, Germany
+  - name: "Telegram Agent"
+    type: telegram_agent
+    options:
+      auth_token: y82394
+      chat_ids: 1289301,12391029
+      parse_mode: markdown
