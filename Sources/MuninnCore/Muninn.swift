@@ -18,14 +18,18 @@ public class Muninn {
 
             let agents = configScenario.agents.compactMap { $0.parse() }
 
+            // Configure specified receivers
             for agent in agents where agent is EmittingAgent {
+                var agent = agent as! EmittingAgent
+
                 guard let wantedReceivers = configScenario.agents.first(where: { $0.name == agent.name })!.receivers else {
                     continue
                 }
+
                 let receivers = wantedReceivers
                     .compactMap { agentName in return agents.first(where: { $0.name == agentName })}
                     .filter { $0 is ReceivingAgent }
-                var agent = agent as! EmittingAgent
+
                 agent.receivers = receivers as! [ReceivingAgent]
             }
 
