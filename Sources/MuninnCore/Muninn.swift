@@ -48,4 +48,3 @@ public class Muninn {
 
     public init() {}
 }
-
