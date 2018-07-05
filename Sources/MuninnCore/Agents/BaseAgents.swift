@@ -4,6 +4,8 @@ protocol Agent {
 
     var name: String { get }
     var memory: [String: String] { get set }
+
+    init?(from config: YamlAgent)
 }
 
 // An agent that can receive events.

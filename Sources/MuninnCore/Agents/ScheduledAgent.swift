@@ -15,6 +15,18 @@ enum Schedule {
     case every(TimeInterval)
 
     case at(Time)
+
+    init?(from value: String) {
+        switch value {
+        case "every_1m": self = .every1m
+        case "every_2m": self = .every2m
+        case "every_5m": self = .every5m
+        case "every_1d": self = .every1d
+        case "every_2d": self = .every2d
+        case "every_monday": self = .everyMonday
+        default: return nil
+        }
+    }
 }
 
 /// An agent that runs on a schedule and produces events.

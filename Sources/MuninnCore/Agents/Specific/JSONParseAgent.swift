@@ -24,6 +24,14 @@ class JSONParseAgent: ProcessingAgent {
         self.jsonHandler = jsonHandler
     }
 
+    required init?(from config: YamlAgent) {
+        self.name = config.name
+        #warning("TODO")
+        self.sources = []
+        self.receivers = []
+        self.jsonHandler = { data in return data }
+    }
+
     func process(event: Event) {
         guard let payload = self.jsonHandler(event.payload) else { return }
         let newEvent = Event(source: self, payload: payload)
