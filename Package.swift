@@ -7,8 +7,7 @@ let package = Package(
         .package(url: "https://github.com/vapor/console.git", from: "3.0.0"),
     ],
     targets: [
-        .target(name: "MuninnCore", dependencies: ["CoreAgents"]),
-        .target(name: "CoreAgents", dependencies: []),
+        .target(name: "MuninnCore", dependencies: []),
         .target(name: "muninn", dependencies: ["MuninnCore", "Console"]),
         .testTarget(name: "MuninnTests", dependencies: ["MuninnCore"])
     ]
