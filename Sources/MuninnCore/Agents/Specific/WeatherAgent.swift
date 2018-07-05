@@ -1,10 +1,8 @@
 import Foundation
 
+/// The Weather Agent creates an event for the day’s weather at a given `location`.
 class WeatherAgent: ScheduledAgent {
     static var agentName = "Weather Agent"
-    static var description = """
-    The Weather Agent creates an event for the day’s weather at a given `location`.
-    """
 
     var name: String
     var memory: [String: String] = [:]

@@ -1,10 +1,8 @@
 import Foundation
 
+/// The Telegram Agent receives and collects events and sends them via [Telegram](https://telegram.org/).
 class TelegramAgent: ReceivingAgent {
     static var agentName = "Telegram Agent"
-    static var description = """
-    The Telegram Agent receives and collects events and sends them via [Telegram](https://telegram.org/).
-    """
 
     var name: String
     var memory: [String: String] = [:]

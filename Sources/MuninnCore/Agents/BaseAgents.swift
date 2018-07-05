@@ -1,6 +1,5 @@
 protocol Agent {
     static var agentName: String { get }
-    static var description: String { get }
 
     var name: String { get }
     var memory: [String: String] { get set }
