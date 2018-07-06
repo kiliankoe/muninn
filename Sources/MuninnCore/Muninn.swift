@@ -1,7 +1,13 @@
 import Foundation
 import Yams
+import Console
+
+let console = Terminal()
 
 public class Muninn {
+    public static let shared = Muninn()
+    public init() {}
+
     struct Scenario {
         var name: String
         var agents: [Agent]
@@ -50,13 +56,22 @@ public class Muninn {
         self.readScenarios()
 
         // TODO: Improve output, ideally to show receiver relationships.
+        // Initial agents are all EmittingAgents
         for scenario in self.scenarios {
-            print("Created scenario '\(scenario.name)' with the following agents:")
+            console.output("Scenario \(scenario.name) found:".consoleText(color: .magenta, isBold: true))
             for agent in scenario.agents {
                 print(" - \(agent.name)")
             }
         }
-    }
 
-    public init() {}
+        let scheduledAgents = self.scenarios
+            .flatMap { $0.agents }
+            .filter { $0 is ScheduledAgent } as! [ScheduledAgent]
+
+        Scheduler.shared.schedule(agents: scheduledAgents)
+
+        console.output("Running...".consoleText(color: .brightCyan, isBold: true))
+
+        RunLoop.main.run(until: .distantFuture)
+    }
 }

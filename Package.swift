@@ -9,8 +9,8 @@ let package = Package(
         .package(url: "https://github.com/Flight-School/AnyCodable.git", from: "0.1.0"),
     ],
     targets: [
-        .target(name: "MuninnCore", dependencies: ["Yams", "AnyCodable"]),
-        .target(name: "muninn", dependencies: ["MuninnCore", "Console"]),
+        .target(name: "MuninnCore", dependencies: ["Yams", "AnyCodable", "Console"]),
+        .target(name: "muninn", dependencies: ["MuninnCore"]),
         .testTarget(name: "MuninnTests", dependencies: ["MuninnCore"])
     ]
 )
