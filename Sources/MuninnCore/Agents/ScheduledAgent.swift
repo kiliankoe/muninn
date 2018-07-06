@@ -14,7 +14,7 @@ enum Schedule {
     case everyMonday
     case every(TimeInterval)
 
-    case at(Time)
+    case dailyAt(Time)
 
     init?(from value: String) {
         switch value {
@@ -45,7 +45,7 @@ extension ScheduledAgent {
         case .every2d: return 2 * 24 * 60 * 60
         case .everyMonday: fatalError("handle mondays? wat?")
         case .every(let custom): return custom
-        case .at(let time): fatalError("nooooo")
+        case .dailyAt(let time): fatalError("nooooo")
         }
     }
 
@@ -73,7 +73,7 @@ extension Schedule: CustomStringConvertible {
         case .every2d: return "every two days at 12am"
         case .everyMonday: return "every monday at 12am"
         case .every(let interval): return "every custom interval: \(interval)"
-        case .at(let time): return "every day at \(time)"
+        case .dailyAt(let time): return "every day at \(time)"
         }
     }
 }
