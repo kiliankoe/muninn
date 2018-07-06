@@ -54,6 +54,7 @@ extension ScheduledAgent {
         if #available(macOS 10.12, *) {
             return Timer(fire: Date().addingTimeInterval(3), interval: 1, repeats: true) { timer in
                 console.output(String(describing: timer).consoleText(color: .brightBlack))
+                self.emit()
             }
         } else {
             console.output("Unfortunately scheduled agents are not supported on this platform.".consoleText(color: .red))
